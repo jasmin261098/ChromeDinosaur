@@ -5,7 +5,7 @@ public class App {
         int boardWidth = 750;
         int boardHeight = 250;
 
-        JFrame chromeDinosaurFrame = new JFrame("Chomis Jumping Adventure");
+        JFrame chromeDinosaurFrame = new JFrame("Chromis Jumping Adventure");
         chromeDinosaurFrame.setVisible(true);
         chromeDinosaurFrame.setSize(boardWidth, boardHeight);
         chromeDinosaurFrame.setLocationRelativeTo(null);
