@@ -2,7 +2,6 @@ import javax.swing.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        //create window
         int boardWidth = 750;
         int boardHeight = 250;
 
@@ -12,5 +11,10 @@ public class App {
         chromeDinosaurFrame.setLocationRelativeTo(null);
         chromeDinosaurFrame.setResizable(false);
         chromeDinosaurFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        ChromeDinosaur chromeDinosaur = new ChromeDinosaur();
+        chromeDinosaurFrame.add(chromeDinosaur);
+        chromeDinosaurFrame.pack();
+        chromeDinosaurFrame.setVisible(true);
     }
 }
