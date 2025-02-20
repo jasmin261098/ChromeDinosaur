@@ -15,6 +15,7 @@ public class App {
         ChromeDinosaur chromeDinosaur = new ChromeDinosaur();
         chromeDinosaurFrame.add(chromeDinosaur);
         chromeDinosaurFrame.pack();
+        chromeDinosaur.requestFocus();
         chromeDinosaurFrame.setVisible(true);
     }
 }
