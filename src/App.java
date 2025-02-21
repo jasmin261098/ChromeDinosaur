@@ -1,12 +1,11 @@
+import java.awt.*;
 import javax.swing.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        final int BOARD_WIDTH = 750;
-        final int BOARD_HEIGHT = 250;
-
+        
         JFrame chromeDinosaurFrame = new JFrame("Chromis Jumping Adventure");
-        setupChromeDinosaurFrame(BOARD_WIDTH, BOARD_HEIGHT, chromeDinosaurFrame);
+        setupChromeDinosaurFrame(ChromeDinosaurGameLogic.BOARD_WIDTH, ChromeDinosaurGameLogic.BOARD_HEIGHT, chromeDinosaurFrame);
 
         ChromeDinosaurGameLogic chromeDinosaur = new ChromeDinosaurGameLogic();
         addGameLogicToFrame(chromeDinosaurFrame, chromeDinosaur);
