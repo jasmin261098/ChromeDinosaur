@@ -40,11 +40,22 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
 
     Block dinosaur;
 
+    //cactus dimensions
+    int cactus1Width = 34;
+    int cactus2Width = 69;
+    int cactus3Width = 102;
+    int cactusHeight = 70;
+    int cactusX = 700;
+    int cactusY = boardHeight - cactusHeight;
+    ArrayList<Block> cactusArray;
+
     //physics
+    int velocityX = -12; //cactus moving left speed
     int velocityY = 0; //dinosaur jump speed
     int gravity = 1; //positive numbers means downwards
 
     Timer gameLoop;
+    Timer placeCactusTimer;
 
 
     public ChromeDinosaur() {
@@ -63,10 +74,35 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
 
         //dinosaur
         dinosaur = new Block(dinosaurX, dinosaurY, dinosaurWidth, dinosaurHeight, dinosaurImg);
+        //cactus
+        cactusArray = new ArrayList<Block>();
 
         //game loop
         gameLoop = new Timer(1000/60, this); //1000/60 = 60 frames per 1000ms (1s), update
         gameLoop.start();
+
+        //place cactus timer
+        placeCactusTimer = new Timer(1500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                placeCactus();
+            }
+        });
+        placeCactusTimer.start();
+    }
+
+    void placeCactus() {
+        double placeCactusChance = Math.random(); // 0-0.99999
+        if (placeCactusChance > .90) { //10% chance to get cactus 3
+            Block cactus = new Block(cactusX, cactusY, cactus3Width, cactusHeight, cactus3Img);
+            cactusArray.add(cactus);
+        } else if (placeCactusChance > .70) { //20% chance to get cactus 2
+            Block cactus = new Block(cactusX, cactusY, cactus2Width, cactusHeight, cactus2Img);
+            cactusArray.add(cactus);
+        } else if (placeCactusChance > .50) { //20% chance to get cactus 1
+            Block cactus = new Block(cactusX, cactusY, cactus1Width, cactusHeight, cactus1Img);
+            cactusArray.add(cactus);
+        } //50% chance to actually get a cactus
     }
 
     //draw images on the Panel
@@ -76,11 +112,19 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
     }
 
     public void draw(Graphics g) {
+        //dinosaur
         g.drawImage(dinosaur.img, dinosaur.x, dinosaur.y, dinosaur.width, dinosaur.height, null);
+
+        //cactus - interaring over the cactus array and drawing each of them 
+        for (int i = 0; i < cactusArray.size(); i++) {
+            Block cactus = cactusArray.get(i);
+            g.drawImage(cactus.img, cactus.x, cactus.y, cactus.width, cactus.height, null);
+        }
     }
 
     //handle movement updates on the screen
     public void move() {
+        //dinosaur
         velocityY += gravity; 
         dinosaur.y += velocityY;
 
@@ -88,6 +132,12 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
             dinosaur.y = dinosaurY;
             velocityY = 0;
             dinosaur.img = dinosaurImg;
+        }
+
+        //cactus
+        for (int i = 0; i < cactusArray.size(); i++) {
+            Block cactus = cactusArray.get(i);
+            cactus.x += velocityX;
         }
     }
 
