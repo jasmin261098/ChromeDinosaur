@@ -55,6 +55,7 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
     int gravity = 1; //positive numbers means downwards
 
     boolean gameOver = false;
+    int score = 0;
 
     Timer gameLoop;
     Timer placeCactusTimer;
@@ -109,6 +110,10 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
             Block cactus = new Block(cactusX, cactusY, cactus1Width, cactusHeight, cactus1Img);
             cactusArray.add(cactus);
         } //50% chance to actually get a cactus
+
+        if (cactusArray.size() > 10) {
+            cactusArray.remove(0); // remove the first cactus from the ArrayList
+        }
     }
 
     //draw images on the Panel
@@ -125,6 +130,15 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
         for (int i = 0; i < cactusArray.size(); i++) {
             Block cactus = cactusArray.get(i);
             g.drawImage(cactus.img, cactus.x, cactus.y, cactus.width, cactus.height, null);
+        }
+
+        //score
+        g.setColor(Color.black);
+        g.setFont(new Font("Courier", Font.PLAIN, 32));
+        if (gameOver) {
+            g.drawString(("Game Over: ")+ String.valueOf(score), 10, 35);
+        } else {
+            g.drawString(String.valueOf(score), 10, 35);
         }
     }
 
@@ -150,6 +164,9 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
                 dinosaur.img = dinosaurDeadImg;
             }
         }
+
+        //score
+        score++;
     }
 
     //collision detection formular
@@ -179,6 +196,18 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
                 velocityY = -17;
                 dinosaur.img = dinosaurJumpImg;
             }
+        }
+
+        if (gameOver) {
+            //restart game by resetting conditions
+            dinosaur.y = dinosaurY;
+            dinosaur.img = dinosaurImg;
+            velocityY = 0;
+            cactusArray.clear();
+            score = 0;
+            gameOver = false;
+            gameLoop.start();
+            placeCactusTimer.start();
         }
     }
 
