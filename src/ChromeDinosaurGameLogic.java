@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.util.ArrayList; //to store all cactus
 import javax.swing.*;
 
-public class ChromeDinosaur extends JPanel implements ActionListener, KeyListener {
+public class ChromeDinosaurGameLogic extends JPanel implements ActionListener, KeyListener {
     int boardWidth = 750;
     int boardHeight = 250;
 
@@ -61,7 +61,7 @@ public class ChromeDinosaur extends JPanel implements ActionListener, KeyListene
     Timer placeCactusTimer;
 
 
-    public ChromeDinosaur() {
+    public ChromeDinosaurGameLogic() {
         setPreferredSize(new Dimension(boardWidth, boardHeight));
         setBackground(Color.lightGray);
         setFocusable(true); //can listen to space input
